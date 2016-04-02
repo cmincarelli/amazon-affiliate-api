@@ -7,6 +7,7 @@ credentials =
   awsId: process.env.AWS_ID
   awsSecret: process.env.AWS_SECRET
 
+###
 describe 'formatQueryParams(query, method, credentials)', ->
   it 'should return an object', ->
     queryParams = utils.formatQueryParams
@@ -133,7 +134,7 @@ describe 'client.itemSearch(query, cb)', ->
     client = amazonAffiliateApi.createClient credentials
 
     describe 'when no callback is passed', ->
-      it 'should return search results from amazon', ->
+      it 'should return results from amazon', ->
         client.itemSearch
           keywords: 'Pulp fiction'
           searchIndex: 'DVD'
@@ -155,7 +156,7 @@ describe 'client.itemSearch(query, cb)', ->
           results.Items.should.have.property 'TotalPages'
 
     describe 'when callback is passed', ->
-      it 'should return search results from amazon', ->
+      it 'should return results from amazon', ->
         client.itemSearch {keywords: 'Pulp fiction', searchIndex: 'DVD', responseGroup: 'Offers'}, (err, results) ->
           results.Items.Item.should.be.an.Array
           results.Items.should.have.property 'TotalResults'
@@ -193,7 +194,7 @@ describe 'client.itemLookup(query, cb)', ->
     client = amazonAffiliateApi.createClient credentials
 
     describe 'when no callback is passed', ->
-      it 'should return search results from amazon', ->
+      it 'should return results from amazon', ->
         client.itemLookup
           idType: 'UPC',
           itemId: '889030012227'
@@ -210,7 +211,7 @@ describe 'client.itemLookup(query, cb)', ->
           results.Items.Request.IsValid.should.equal 'True'
 
     describe 'when callback is passed', ->
-      it 'should return search results from amazon', ->
+      it 'should return results from amazon', ->
         client.itemLookup {idType: 'UPC', itemId: '889030012227'}, (err, results) ->
           results.Items.Item.should.be.an.Array
 
@@ -264,7 +265,7 @@ describe 'client.browseNodeLookup(query, cb)', ->
     client = amazonAffiliateApi.createClient credentials
 
     describe 'when no callback is passed', ->
-      it 'should return search results from amazon', ->
+      it 'should return results from amazon', ->
         client.browseNodeLookup
           browseNodeId: '549726',
           responseGroup: 'NewReleases'
@@ -281,7 +282,7 @@ describe 'client.browseNodeLookup(query, cb)', ->
           results.BrowseNodes.Request.IsValid.should.equal 'True'
 
     describe 'when callback is passed', ->
-      it 'should return search results from amazon', ->
+      it 'should return results from amazon', ->
         client.browseNodeLookup {browseNodeId: '549726', responseGroup: 'NewReleases'}, (err, results) ->
           results.BrowseNodes.BrowseNode.should.be.an.Array
           results.BrowseNodes.Request.IsValid.should.equal 'True'
@@ -341,7 +342,7 @@ describe 'client.cartCreate(query, cb)', ->
     client = amazonAffiliateApi.createClient credentials
 
     describe 'when no callback is passed', ->
-      it 'should return search results from amazon', ->
+      it 'should return results from amazon', ->
         client.cartCreate
           items: [
             {
@@ -380,7 +381,7 @@ describe 'client.cartCreate(query, cb)', ->
           results.Cart.CartItems.CartItem.should.be.an.Array
 
     describe 'when callback is passed', ->
-      it 'should return search results from amazon', (done)->
+      it 'should return results from amazon', (done)->
         client.cartCreate
           items: [
             ASIN: 'B00LZTHUH6'
@@ -446,10 +447,104 @@ describe 'client.cartCreate(query, cb)', ->
 
     describe 'when callback is passed', ->
       it 'should return the errors inside the request node', (done) ->
-        client.cartCreate [{ASIN: 'B00LZTHUH6', Quantity: 1}], (err, results) ->
+        client.cartCreate {}, (err, results) ->
           err.should.be.an.Object
           err.should.have.property 'Cart'
           err.Cart.should.have.property 'Request'
           err.Cart.Request.should.have.property 'Errors'
           err.Cart.Request.Errors.should.be.an.Array
           done()
+
+describe 'client.cartClear(query, cb)', ->
+  cartId = '188-3713666-0393719'
+  cartHMAC = 'U6eSovwQvqaAVuntsV88gpjdU5I='
+
+  describe 'when credentials are valid', ->
+    client = amazonAffiliateApi.createClient credentials
+
+    describe 'when no callback is passed', ->
+      it 'should return results from amazon', ->
+        client.cartClear
+          'CartId': cartId,
+          'HMAC': cartHMAC
+        .then (results) ->
+          results.Cart.should.be.an.Object
+          results.Cart.Request.IsValid.should.equal 'True'
+          results.Cart.should.have.property 'CartId'
+          results.Cart.should.have.property 'HMAC'
+          results.Cart.should.not.have.property 'CartItems'
+
+      it 'should work with custom domain', ->
+        client.cartClear
+          'CartId': cartId,
+          'HMAC': cartHMAC
+        .then (results) ->
+          results.Cart.should.be.an.Object
+          results.Cart.Request.IsValid.should.equal 'True'
+          results.Cart.should.have.property 'CartId'
+          results.Cart.should.have.property 'HMAC'
+          results.Cart.should.not.have.property 'CartItems'
+
+    describe 'when callback is passed', ->
+      it 'should return results from amazon', (done)->
+        client.cartClear
+          'CartId': cartId,
+          'HMAC': cartHMAC
+          (err, results) ->
+            results.Cart.should.be.an.Object
+            results.Cart.Request.IsValid.should.equal 'True'
+            results.Cart.should.have.property 'CartId'
+            results.Cart.should.have.property 'HMAC'
+            results.Cart.should.not.have.property 'CartItems'
+            done()
+
+  describe 'when credentials are invalid', ->
+    client = amazonAffiliateApi.createClient awsTag: 'sfsadf', awsId: 'sfadf', awsSecret: 'fsg'
+
+    describe 'when no callback is passed', ->
+      it 'should return an error', ->
+        client.cartClear
+          'CartId': cartId,
+          'HMAC': cartHMAC
+        .catch (err) ->
+          err.should.be.an.Object
+          err.should.have.property 'Error'
+          err.Error.should.have.property 'Code'
+          err.Error.Code.should.equal 'InvalidClientTokenId'
+
+
+    describe 'when callback is passed', ->
+      it 'should return an error', (done) ->
+        client.cartClear
+          'CartId': cartId,
+          'HMAC': cartHMAC
+          (err, results) ->
+            err.should.be.an.Object
+            err.should.have.property 'Error'
+            err.Error.should.have.property 'Code'
+            err.Error.Code.should.equal 'InvalidClientTokenId'
+            done()
+
+  describe 'when the request returns an error', ->
+    client = amazonAffiliateApi.createClient credentials
+
+    describe 'when no callback is passed', ->
+      it 'should return the errors inside the request node', ->
+        client.cartClear({})
+        .catch (err) =>
+          err.should.be.an.Object
+          err.should.have.property 'Cart'
+          err.Cart.should.have.property 'Request'
+          err.Cart.Request.should.have.property 'Errors'
+          err.Cart.Request.Errors.should.be.an.Array
+
+    describe 'when callback is passed', ->
+      it 'should return the errors inside the request node', (done) ->
+        client.cartClear {}, (err, results) ->
+          err.should.be.an.Object
+          err.should.have.property 'Cart'
+          err.Cart.should.have.property 'Request'
+          err.Cart.Request.should.have.property 'Errors'
+          err.Cart.Request.Errors.should.be.an.Array
+          done()
+###
