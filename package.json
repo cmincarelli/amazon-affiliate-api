@@ -1,5 +1,5 @@
 {
-  "name": "amazon-cart-api",
+  "name": "amazon-affiliate-api",
   "version": "0.0.0",
   "description": "",
   "main": "./lib/index.js",
@@ -10,14 +10,15 @@
     "amazon",
     "aws",
     "product",
+    "cart",
     "ads",
     "advertising"
   ],
   "scripts": {
     "test": "mocha"
   },
-  "author": "chrism@theanchorlight.com",
-  "license": "ISC",
+  "author": "Chris Mink <chrism@theanchorlight.com> (https://github.com/cmincarelli)",
+  "license": "MIT",
   "dependencies": {
     "request": "~2.69.0",
     "xml2js": "~0.4.16",
