@@ -64,12 +64,11 @@ client.itemSearch({
   searchIndex: 'DVD',
   audienceRating: 'R',
   responseGroup: 'ItemAttributes,Offers,Images'
-}, function(err, results, response) {
+}, function(err, results) {
   if (err) {
     console.log(err);
   } else {
-    console.log(results);  // products
-    console.log(response); // response (containing TotalPages, TotalResults, MoreSearchResultsUrl and so on)
+    console.log(results);
   }
 });
 ```
@@ -78,13 +77,13 @@ client.itemSearch({
 
 You can add any available params for the itemSearch method.
 
-**condition**: availiable options - 'All', 'New', 'Used', 'Refurbished', 'Collectible'. Defaults to 'All' 
+**condition**: availiable options - 'All', 'New', 'Used', 'Refurbished', 'Collectible'. Defaults to 'All'
 
-**keywords**: Defaults to '' responseGroup: You can use multiple values by separating them with comma (e.g `responseGroup: 'ItemAttributes,Offers,Images`'). Defaults to'ItemAttributes' 
+**keywords**: Defaults to '' responseGroup: You can use multiple values by separating them with comma (e.g `responseGroup: 'ItemAttributes,Offers,Images`'). Defaults to'ItemAttributes'
 
-**searchIndex**: Defaults to 'All'. 
+**searchIndex**: Defaults to 'All'.
 
-**itemPage**: Defaults to '1'. sort: Valid values include 'salesrank','psrank','titlerank','-price','price'. 
+**itemPage**: Defaults to '1'. sort: Valid values include 'salesrank','psrank','titlerank','-price','price'.
 
 **domain**: Defaults to 'webservices.amazon.com'.
 
@@ -99,7 +98,7 @@ client.itemLookup({
   idType: 'UPC',
   itemId: '884392579524'
 }).then(function(results) {
-  console.log(JSON.stringify(results));
+  console.log(results);
 }).catch(function(err) {
   console.log(err);
 });
@@ -112,7 +111,7 @@ client.itemLookup({
   idType: 'UPC',
   itemId: '635753490879',
   responseGroup: 'ItemAttributes,Offers,Images'
-}, function(err, results, response) {
+}, function(err, results) {
   if (err) {
     console.log(err);
   } else {
@@ -124,19 +123,19 @@ client.itemLookup({
 
 You can add any available params for the ItemLookup method.
 
-**condition**: options - 'All', 'New', 'Used', 'Refurbished', 'Collectible'. Defaults to 'All' 
+**condition**: options - 'All', 'New', 'Used', 'Refurbished', 'Collectible'. Defaults to 'All'
 
-**idType**: Type of item identifier used to look up an item. options - 'ASIN', 'SKU', 'UPC', 'EAN', 'ISBN'. Defaults to 'ASIN'. 
+**idType**: Type of item identifier used to look up an item. options - 'ASIN', 'SKU', 'UPC', 'EAN', 'ISBN'. Defaults to 'ASIN'.
 
-**includeReviewsSummary**: options - 'True','False'. Defaults to 'True'. 
+**includeReviewsSummary**: options - 'True','False'. Defaults to 'True'.
 
-**itemId**: One or more (up to ten) positive integers that uniquely identify an item. 
+**itemId**: One or more (up to ten) positive integers that uniquely identify an item.
 
-**responseGroup**: You can use multiple values by separating them with comma (e.g `responseGroup: 'ItemAttributes,Offers,Images`'). Defaults to 'ItemAttributes' 
+**responseGroup**: You can use multiple values by separating them with comma (e.g `responseGroup: 'ItemAttributes,Offers,Images`'). Defaults to 'ItemAttributes'
 
-**searchIndex**: Defaults to 'All'. truncateReviewsAt: Defaults to '1000'. To return complete reviews, specify '0'. 
+**searchIndex**: Defaults to 'All'. truncateReviewsAt: Defaults to '1000'. To return complete reviews, specify '0'.
 
-**variationPage**: Defaults to 'All'. 
+**variationPage**: Defaults to 'All'.
 
 **domain**: Defaults to 'webservices.amazon.com'.
 
@@ -161,7 +160,7 @@ using a callback:
 client.browseNodeLookup({
   browseNodeId: '549726',
   responseGroup: 'NewReleases'
-}, function(err, results, response) {
+}, function(err, results) {
   if (err) {
     console.log(err);
   } else {
@@ -218,7 +217,7 @@ client.cartCreate({
     Quantity: 1
   }]
 }, function (err, results ){
-	console.log(err, results, response);
+	console.log(err, results);
 });
 ```
 
@@ -252,7 +251,7 @@ client.cartCreate({
   'CartId': <results.Cart.CartId>,
   'HMAC': <results.Cart.HMAC>
 }, function (err, results ){
-	console.log(err, results, response);
+	console.log(err, results);
 });
 ```
 
@@ -300,7 +299,7 @@ client.cartAdd({
     Quantity: 1
   }]
 }, function (err, results ){
-	console.log(err, results, response);
+	console.log(err, results);
 });
 ```
 
@@ -336,7 +335,7 @@ client.cartAdd({
   'CartId': <results.Cart.CartId>,
   'HMAC': <results.Cart.HMAC>,
 }, function (err, results ){
-	console.log(err, results, response);
+	console.log(err, results);
 });
 ```
 
@@ -384,7 +383,7 @@ client.cartModify({
       Quantity: 0
   }]
 }, function (err, results ){
-	console.log(err, results, response);
+	console.log(err, results);
 });
 ```
 ##### cartModify query options:
