@@ -133,7 +133,9 @@ You can add any available params for the ItemLookup method.
 
 **responseGroup**: You can use multiple values by separating them with comma (e.g `responseGroup: 'ItemAttributes,Offers,Images`'). Defaults to 'ItemAttributes'
 
-**searchIndex**: Defaults to 'All'. truncateReviewsAt: Defaults to '1000'. To return complete reviews, specify '0'.
+**searchIndex**: Defaults to 'All'.
+
+**truncateReviewsAt**: Defaults to '1000'. To return complete reviews, specify '0'.
 
 **variationPage**: Defaults to 'All'.
 
