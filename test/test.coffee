@@ -326,11 +326,130 @@ describe 'client.browseNodeLookup(query, cb)', ->
           err.BrowseNodes.Request.Errors.should.be.an.Array
 
     describe 'when callback is passed', ->
-      it 'should return the errors inside the request node', ->
+      it 'should return the errors inside the request node', (done) ->
         client.browseNodeLookup {browseNodeId: '102340', responseGroup: 'NewReleases'}, (err, results) ->
           err.should.be.an.Object
           err.should.have.property 'BrowseNodes'
           err.BrowseNodes.should.have.property 'Request'
           err.BrowseNodes.Request.should.have.property 'Errors'
           err.BrowseNodes.Request.Errors.should.be.an.Array
+          done()
+
+describe 'client.cartCreate(query, cb)', ->
+
+  describe 'when credentials are valid', ->
+    client = amazonAffiliateApi.createClient credentials
+
+    describe 'when no callback is passed', ->
+      it 'should return search results from amazon', ->
+        client.cartCreate
+          items: [
+            {
+              ASIN: 'B00LZTHUH6'
+              Quantity: 1
+            }
+            {
+              ASIN: 'B00OZTLE8Y'
+              Quantity: 1
+            }
+          ]
+        .then (results) ->
+          results.Cart.should.be.an.Object
+          results.Cart.Request.IsValid.should.equal 'True'
+          results.Cart.should.have.property 'CartId'
+          results.Cart.should.have.property 'HMAC'
+          results.Cart.CartItems.CartItem.should.be.an.Array
+
+      it 'should work with custom domain', ->
+        client.cartCreate
+          items: [
+            {
+              ASIN: 'B00LZTHUH6'
+              Quantity: 1
+            }
+            {
+              ASIN: 'B00OZTLE8Y'
+              Quantity: 1
+            }
+          ]
+        .then (results) ->
+          results.Cart.should.be.an.Object
+          results.Cart.Request.IsValid.should.equal 'True'
+          results.Cart.should.have.property 'CartId'
+          results.Cart.should.have.property 'HMAC'
+          results.Cart.CartItems.CartItem.should.be.an.Array
+
+    describe 'when callback is passed', ->
+      it 'should return search results from amazon', (done)->
+        client.cartCreate
+          items: [
+            ASIN: 'B00LZTHUH6'
+            Quantity: 1
+          ],
+          (err, results) ->
+            results.Cart.should.be.an.Object
+            results.Cart.Request.IsValid.should.equal 'True'
+            results.Cart.should.have.property 'CartId'
+            results.Cart.should.have.property 'HMAC'
+            results.Cart.CartItems.CartItem.should.be.an.Array
+            done()
+
+  describe 'when credentials are invalid', ->
+    client = amazonAffiliateApi.createClient awsTag: 'sfsadf', awsId: 'sfadf', awsSecret: 'fsg'
+
+    describe 'when no callback is passed', ->
+      it 'should return an error', ->
+        client.cartCreate
+          items: [
+            {
+              ASIN: 'B00LZTHUH6'
+              Quantity: 1
+            }
+            {
+              ASIN: 'B00OZTLE8Y'
+              Quantity: 1
+            }
+          ]
+        .catch (err) ->
+          err.should.be.an.Object
+          err.should.have.property 'Error'
+          err.Error.should.have.property 'Code'
+          err.Error.Code.should.equal 'InvalidClientTokenId'
+
+
+    describe 'when callback is passed', ->
+      it 'should return an error', (done) ->
+        client.cartCreate
+          items: [
+            ASIN: 'B00LZTHUH6'
+            Quantity: 1
+          ],
+          (err, results) ->
+            err.should.be.an.Object
+            err.should.have.property 'Error'
+            err.Error.should.have.property 'Code'
+            err.Error.Code.should.equal 'InvalidClientTokenId'
+            done()
+
+  describe 'when the request returns an error', ->
+    client = amazonAffiliateApi.createClient credentials
+
+    describe 'when no callback is passed', ->
+      it 'should return the errors inside the request node', ->
+        client.cartCreate({})
+        .catch (err) =>
+          err.should.be.an.Object
+          err.should.have.property 'Cart'
+          err.Cart.should.have.property 'Request'
+          err.Cart.Request.should.have.property 'Errors'
+          err.Cart.Request.Errors.should.be.an.Array
+
+    describe 'when callback is passed', ->
+      it 'should return the errors inside the request node', (done) ->
+        client.cartCreate [{ASIN: 'B00LZTHUH6', Quantity: 1}], (err, results) ->
+          err.should.be.an.Object
+          err.should.have.property 'Cart'
+          err.Cart.should.have.property 'Request'
+          err.Cart.Request.should.have.property 'Errors'
+          err.Cart.Request.Errors.should.be.an.Array
           done()
