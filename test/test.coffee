@@ -454,8 +454,11 @@ describe 'client.cartCreate(query, cb)', ->
           err.Cart.Request.should.have.property 'Errors'
           err.Cart.Request.Errors.should.be.an.Array
           done()
+###
 
+###
 describe 'client.cartClear(query, cb)', ->
+  # Set this up automatically!
   cartId = '188-3713666-0393719'
   cartHMAC = 'U6eSovwQvqaAVuntsV88gpjdU5I='
 
