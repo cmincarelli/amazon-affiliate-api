@@ -1,0 +1,28 @@
+{
+  "name": "amazon-cart-api",
+  "version": "0.0.0",
+  "description": "",
+  "main": "./lib/index.js",
+  "directories": {
+    "lib": "./lib/"
+  },
+  "keywords": [
+    "amazon",
+    "aws",
+    "product",
+    "ads",
+    "advertising"
+  ],
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "chrism@theanchorlight.com",
+  "license": "ISC",
+  "dependencies": {
+    "request": "~2.69.0",
+    "xml2js": "~0.4.16",
+    "q": "~1.4.1",
+    "crypto": "0.0.3",
+    "lodash": "~4.7.0"
+  }
+}
