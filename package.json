@@ -14,6 +14,14 @@
     "ads",
     "advertising"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cmincarelli/amazon-affiliate-api.git"
+  },
+	"homepage": "https://github.com/cmincarelli/amazon-affiliate-api",
+  "bugs": {
+    "url": "https://github.com/cmincarelli/amazon-affiliate-api/issues"
+  },
   "scripts": {
     "test": "mocha"
   },
@@ -25,5 +33,10 @@
     "q": "~1.4.1",
     "crypto": "0.0.3",
     "lodash": "~4.7.0"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.7.1",
+    "mocha": "^1.20.1",
+    "should": "^4.0.4"
   }
 }
