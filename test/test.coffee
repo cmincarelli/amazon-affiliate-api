@@ -7,7 +7,12 @@ credentials =
   awsId: process.env.AWS_ID
   awsSecret: process.env.AWS_SECRET
 
-###
+beforeEach (done) ->
+  # pause between tests
+  setTimeout () ->
+    done()
+  , 500
+
 describe 'formatQueryParams(query, method, credentials)', ->
   it 'should return an object', ->
     queryParams = utils.formatQueryParams
@@ -337,9 +342,18 @@ describe 'client.browseNodeLookup(query, cb)', ->
           done()
 
 describe 'client.cartCreate(query, cb)', ->
+  cartId = ''
+  cartHMAC = ''
 
   describe 'when credentials are valid', ->
     client = amazonAffiliateApi.createClient credentials
+
+    afterEach (done) ->
+      client.cartClear
+        CartId: cartId
+        HMAC: cartHMAC
+      .then (results) ->
+        done()
 
     describe 'when no callback is passed', ->
       it 'should return results from amazon', ->
@@ -360,6 +374,8 @@ describe 'client.cartCreate(query, cb)', ->
           results.Cart.should.have.property 'CartId'
           results.Cart.should.have.property 'HMAC'
           results.Cart.CartItems.CartItem.should.be.an.Array
+          cartId = results.Cart.CartId
+          cartHMAC = results.Cart.HMAC
 
       it 'should work with custom domain', ->
         client.cartCreate
@@ -379,6 +395,8 @@ describe 'client.cartCreate(query, cb)', ->
           results.Cart.should.have.property 'CartId'
           results.Cart.should.have.property 'HMAC'
           results.Cart.CartItems.CartItem.should.be.an.Array
+          cartId = results.Cart.CartId
+          cartHMAC = results.Cart.HMAC
 
     describe 'when callback is passed', ->
       it 'should return results from amazon', (done)->
@@ -393,6 +411,8 @@ describe 'client.cartCreate(query, cb)', ->
             results.Cart.should.have.property 'CartId'
             results.Cart.should.have.property 'HMAC'
             results.Cart.CartItems.CartItem.should.be.an.Array
+            cartId = results.Cart.CartId
+            cartHMAC = results.Cart.HMAC
             done()
 
   describe 'when credentials are invalid', ->
@@ -416,7 +436,6 @@ describe 'client.cartCreate(query, cb)', ->
           err.should.have.property 'Error'
           err.Error.should.have.property 'Code'
           err.Error.Code.should.equal 'InvalidClientTokenId'
-
 
     describe 'when callback is passed', ->
       it 'should return an error', (done) ->
@@ -454,13 +473,24 @@ describe 'client.cartCreate(query, cb)', ->
           err.Cart.Request.should.have.property 'Errors'
           err.Cart.Request.Errors.should.be.an.Array
           done()
-###
 
-###
 describe 'client.cartClear(query, cb)', ->
-  # Set this up automatically!
-  cartId = '188-3713666-0393719'
-  cartHMAC = 'U6eSovwQvqaAVuntsV88gpjdU5I='
+  cartId = ''
+  cartHMAC = ''
+
+  before (done) ->
+    client = amazonAffiliateApi.createClient credentials
+    client.cartCreate
+      items: [
+        {
+          ASIN: 'B00LZTHUH6'
+          Quantity: 1
+        }
+      ]
+    .then (results) ->
+      cartId = results.Cart.CartId
+      cartHMAC = results.Cart.HMAC
+      done()
 
   describe 'when credentials are valid', ->
     client = amazonAffiliateApi.createClient credentials
@@ -550,4 +580,3 @@ describe 'client.cartClear(query, cb)', ->
           err.Cart.Request.should.have.property 'Errors'
           err.Cart.Request.Errors.should.be.an.Array
           done()
-###
