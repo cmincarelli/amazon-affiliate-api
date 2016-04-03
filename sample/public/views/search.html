@@ -1,0 +1,28 @@
+<div class="row m-t-b">
+  <div class="col-sm-12">
+    <form name="form" class="form" role="form">
+      <fieldset class="form-group">
+        <label for="searchTerm">Search Term</label>
+        <input type="term" class="form-control" id="searchTerm" placeholder="Enter search term" ng-model="searchTerm">
+      </fieldset>
+      <button type="submit" class="btn btn-primary" ng-click="search($event)">Search</button>
+    </form>
+  </div>
+</div>
+<div class="row m-t-b" ng-repeat="row in searchResults">
+  <div class="col-sm-4" ng-repeat="item in row">
+    <div class="thumbnail">
+      <img class="img-responsive" src="{{ item.LargeImage.URL }}"><img>
+      <div class="caption">
+        <h3>{{ item.ItemAttributes.Title }}</h3>
+        <ul>
+          <li ng-repeat="feature in item.ItemAttributes.Feature track by $index"> {{ feature }} </li>
+        </ul>
+        <p class="text-right">
+          <a href="#" class="btn btn-primary" role="button" ng-click="go(item.ASIN)">View Product</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
