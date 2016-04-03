@@ -46,7 +46,7 @@
         var data = results.data;
         $scope.cart = data.Cart;
       }).catch(function(err){
-
+        $cookies.remove('cartId');
       });
     }
 

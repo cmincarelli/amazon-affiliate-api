@@ -1,6 +1,7 @@
 <div class="row">
 <div class="col-sm-12">
   <div class="page-header">
+    <small class="text-muted"><a ui-sref="app.search"> &lt; back to search results</a></small>
     <h1>{{ item.ItemAttributes.Title }}</h1>
   </div>
   <div class="row">
@@ -13,7 +14,7 @@
         <fieldset class="form-group">
           <label>Buy Item</label>
           <p>
-            Price: {{ item.ItemAttributes.ListPrice.FormattedPrice }}
+            Price: {{ item.OfferSummary.LowestNewPrice.FormattedPrice }}
           </p>
           <button class="btn btn-primary" ng-click="buy(item.ASIN)">Buy</button>
         </fieldset>
