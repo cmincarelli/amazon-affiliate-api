@@ -8,7 +8,7 @@ credentials =
   awsSecret: process.env.AWS_SECRET
 
 beforeEach (done) ->
-  # pause between tests
+  # pause between tests, avoid getting yelled at by amazon
   setTimeout () ->
     done()
   , 500
@@ -135,6 +135,12 @@ describe 'createClient(credentials)', ->
 
 describe 'client.itemSearch(query, cb)', ->
 
+  beforeEach (done) ->
+    # pause between tests, avoid getting yelled at by amazon, avoid getting yelled at by amazon
+    setTimeout () ->
+      done()
+    , 500
+
   describe 'when credentials are valid', ->
     client = amazonAffiliateApi.createClient credentials
 
@@ -167,7 +173,6 @@ describe 'client.itemSearch(query, cb)', ->
           results.Items.should.have.property 'TotalResults'
           results.Items.should.have.property 'TotalPages'
 
-
   describe 'when credentials are invalid', ->
     client = amazonAffiliateApi.createClient awsTag: 'sfsadf', awsId: 'sfadf', awsSecret: 'fsg'
 
@@ -195,6 +200,12 @@ describe 'client.itemSearch(query, cb)', ->
 
 describe 'client.itemLookup(query, cb)', ->
 
+  beforeEach (done) ->
+    # pause between tests, avoid getting yelled at by amazon
+    setTimeout () ->
+      done()
+    , 500
+
   describe 'when credentials are valid', ->
     client = amazonAffiliateApi.createClient credentials
 
@@ -219,7 +230,6 @@ describe 'client.itemLookup(query, cb)', ->
       it 'should return results from amazon', ->
         client.itemLookup {idType: 'UPC', itemId: '889030012227'}, (err, results) ->
           results.Items.Item.should.be.an.Array
-
 
   describe 'when credentials are invalid', ->
     client = amazonAffiliateApi.createClient awsTag: 'sfsadf', awsId: 'sfadf', awsSecret: 'fsg'
@@ -265,6 +275,12 @@ describe 'client.itemLookup(query, cb)', ->
           err.Items.Request.Errors.should.be.an.Array
 
 describe 'client.browseNodeLookup(query, cb)', ->
+
+  beforeEach (done) ->
+    # pause between tests, avoid getting yelled at by amazon
+    setTimeout () ->
+      done()
+    , 500
 
   describe 'when credentials are valid', ->
     client = amazonAffiliateApi.createClient credentials
@@ -348,6 +364,12 @@ describe 'client.cartCreate(query, cb)', ->
   describe 'when credentials are valid', ->
     client = amazonAffiliateApi.createClient credentials
 
+    beforeEach (done) ->
+      # pause between tests, avoid getting yelled at by amazon
+      setTimeout () ->
+        done()
+      , 500
+
     afterEach (done) ->
       client.cartClear
         CartId: cartId
@@ -418,6 +440,12 @@ describe 'client.cartCreate(query, cb)', ->
   describe 'when credentials are invalid', ->
     client = amazonAffiliateApi.createClient awsTag: 'sfsadf', awsId: 'sfadf', awsSecret: 'fsg'
 
+    beforeEach (done) ->
+      # pause between tests, avoid getting yelled at by amazon
+      setTimeout () ->
+        done()
+      , 500
+
     describe 'when no callback is passed', ->
       it 'should return an error', ->
         client.cartCreate
@@ -453,6 +481,12 @@ describe 'client.cartCreate(query, cb)', ->
 
   describe 'when the request returns an error', ->
     client = amazonAffiliateApi.createClient credentials
+
+    beforeEach (done) ->
+      # pause between tests, avoid getting yelled at by amazon
+      setTimeout () ->
+        done()
+      , 500
 
     describe 'when no callback is passed', ->
       it 'should return the errors inside the request node', ->
@@ -495,6 +529,12 @@ describe 'client.cartClear(query, cb)', ->
   describe 'when credentials are valid', ->
     client = amazonAffiliateApi.createClient credentials
 
+    beforeEach (done) ->
+      # pause between tests, avoid getting yelled at by amazon
+      setTimeout () ->
+        done()
+      , 500
+
     describe 'when no callback is passed', ->
       it 'should return results from amazon', ->
         client.cartClear
@@ -534,6 +574,12 @@ describe 'client.cartClear(query, cb)', ->
   describe 'when credentials are invalid', ->
     client = amazonAffiliateApi.createClient awsTag: 'sfsadf', awsId: 'sfadf', awsSecret: 'fsg'
 
+    beforeEach (done) ->
+      # pause between tests, avoid getting yelled at by amazon
+      setTimeout () ->
+        done()
+      , 500
+
     describe 'when no callback is passed', ->
       it 'should return an error', ->
         client.cartClear
@@ -544,7 +590,6 @@ describe 'client.cartClear(query, cb)', ->
           err.should.have.property 'Error'
           err.Error.should.have.property 'Code'
           err.Error.Code.should.equal 'InvalidClientTokenId'
-
 
     describe 'when callback is passed', ->
       it 'should return an error', (done) ->
@@ -560,6 +605,12 @@ describe 'client.cartClear(query, cb)', ->
 
   describe 'when the request returns an error', ->
     client = amazonAffiliateApi.createClient credentials
+
+    beforeEach (done) ->
+      # pause between tests, avoid getting yelled at by amazon
+      setTimeout () ->
+        done()
+      , 500
 
     describe 'when no callback is passed', ->
       it 'should return the errors inside the request node', ->
