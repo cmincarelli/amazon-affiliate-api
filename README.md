@@ -1,7 +1,13 @@
 
 # NodeJS Amazon Affiliate API Client
 
-amazon-affiliate-api is just a thin wrapper around Amazon's API.
+--
+
+![Build Status](https://api.travis-ci.org/cmincarelli/amazon-affiliate-api.svg?branch=master)
+
+![Amazon Product API](http://i.imgur.com/MwfPRfB.gif)
+
+"amazon-affiliate-api" is just a thin wrapper around Amazon's API.
 
 The intent is to simplify the request process by automatically handling request signatures, performing the HTTP requests, processing the responses and parsing the XML.
 
