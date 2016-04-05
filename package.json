@@ -1,6 +1,6 @@
 {
   "name": "amazon-affiliate-api",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "./lib/index.js",
   "directories": {
@@ -18,7 +18,7 @@
     "type": "git",
     "url": "git://github.com/cmincarelli/amazon-affiliate-api.git"
   },
-	"homepage": "https://github.com/cmincarelli/amazon-affiliate-api",
+  "homepage": "https://github.com/cmincarelli/amazon-affiliate-api",
   "bugs": {
     "url": "https://github.com/cmincarelli/amazon-affiliate-api/issues"
   },
