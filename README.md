@@ -85,7 +85,9 @@ You can add any available params for the itemSearch method.
 
 **condition**: availiable options - 'All', 'New', 'Used', 'Refurbished', 'Collectible'. Defaults to 'All'
 
-**keywords**: Defaults to '' responseGroup: You can use multiple values by separating them with comma (e.g `responseGroup: 'ItemAttributes,Offers,Images`'). Defaults to'ItemAttributes'
+**keywords**: Defaults to ''
+
+**responseGroup**: You can use multiple values by separating them with comma (e.g `responseGroup: 'ItemAttributes,Offers,Images`'). Defaults to'ItemAttributes'
 
 **searchIndex**: Defaults to 'All'.
 
