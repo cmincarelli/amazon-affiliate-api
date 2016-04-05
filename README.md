@@ -1,8 +1,6 @@
 
 # NodeJS Amazon Affiliate API Client
 
--
-
 [![Build Status](https://travis-ci.org/cmincarelli/amazon-affiliate-api.svg?branch=master)](https://travis-ci.org/cmincarelli/amazon-affiliate-api)
 [![Dependency Status](https://gemnasium.com/cmincarelli/amazon-affiliate-api.svg)](https://gemnasium.com/cmincarelli/amazon-affiliate-api)
 
