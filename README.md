@@ -3,7 +3,7 @@
 
 --
 
-![Build Status](https://api.travis-ci.org/cmincarelli/amazon-affiliate-api.svg?branch=master)
+![Build Status](https://api.travis-ci.org/cmincarelli/amazon-affiliate-api.svg?branch=master) [![Dependency Status](https://gemnasium.com/cmincarelli/amazon-affiliate-api.svg)](https://gemnasium.com/cmincarelli/amazon-affiliate-api)
 
 ![Amazon Product API](http://i.imgur.com/MwfPRfB.gif)
 
