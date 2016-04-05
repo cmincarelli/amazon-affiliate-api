@@ -6,7 +6,7 @@
 [![Build Status](https://travis-ci.org/cmincarelli/amazon-affiliate-api.svg?branch=master)](https://travis-ci.org/cmincarelli/amazon-affiliate-api)
 [![Dependency Status](https://gemnasium.com/cmincarelli/amazon-affiliate-api.svg)](https://gemnasium.com/cmincarelli/amazon-affiliate-api)
 
-![Amazon Product API](http://i.imgur.com/MwfPRfB.gif)
+[![Amazon Product API](http://i.imgur.com/MwfPRfB.gif)](http://docs.aws.amazon.com/AWSECommerceService/latest/DG/Welcome.html)
 
 "amazon-affiliate-api" is just a thin wrapper around Amazon's API.
 
