@@ -27,7 +27,7 @@ npm install amazon-affiliate-api
 ### Require library
 
 ```javascript
-amazon = require('amazon-product-api');
+amazon = require('amazon-affiliate-api');
 ```
 
 ### Create client
