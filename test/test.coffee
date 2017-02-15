@@ -11,7 +11,7 @@ beforeEach (done) ->
   # pause between tests, avoid getting yelled at by amazon
   setTimeout () ->
     done()
-  , 500
+  , 1000
 
 describe 'formatQueryParams(query, method, credentials)', ->
   it 'should return an object', ->
@@ -370,12 +370,11 @@ describe 'client.cartCreate(query, cb)', ->
         done()
       , 500
 
-    afterEach (done) ->
+    afterEach () ->
       client.cartClear
         CartId: cartId
         HMAC: cartHMAC
       .then (results) ->
-        done()
 
     describe 'when no callback is passed', ->
       it 'should return results from amazon', ->
@@ -512,7 +511,7 @@ describe 'client.cartClear(query, cb)', ->
   cartId = ''
   cartHMAC = ''
 
-  before (done) ->
+  before () ->
     client = amazonAffiliateApi.createClient credentials
     client.cartCreate
       items: [
@@ -524,7 +523,6 @@ describe 'client.cartClear(query, cb)', ->
     .then (results) ->
       cartId = results.Cart.CartId
       cartHMAC = results.Cart.HMAC
-      done()
 
   describe 'when credentials are valid', ->
     client = amazonAffiliateApi.createClient credentials
