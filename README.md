@@ -150,6 +150,54 @@ You can add any available params for the ItemLookup method.
 
 **domain**: Defaults to 'webservices.amazon.com'.
 
+
+#### SimilarityLookup
+
+using promises:
+
+```javascript
+client.similarityLookup({
+  itemId: '8416904626,0670921602', 
+  SimilarityType: 'Random',
+  responseGroup: 'ItemAttributes,Offers,Images'
+}).then(function(results) {
+  console.log(results);
+}).catch(function(err) {
+  console.log(err);
+});
+```
+
+using a callback:
+
+```javascript
+client.similarityLookup({
+  itemId: '8416904626,0670921602', 
+  SimilarityType: 'Random',
+  responseGroup: 'ItemAttributes,Offers,Images'
+}, function(err, results) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(results);
+  }
+});
+```
+##### SimilarityLookup query options:
+
+You can add any available params for the SimilarityLookup method.
+
+**condition**: options - 'All', 'New', 'Used', 'Refurbished', 'Collectible'. Defaults to 'All'
+
+**itemId**: One or more (up to ten) ASINs identifying an item.
+
+**responseGroup**: You can use multiple values by separating them with comma (e.g `responseGroup: 'ItemAttributes,Offers,Images`'). Defaults to 'ItemAttributes'
+
+**MerchantId**: By default returns items sold by various merchants including Amazon. Use 'Amazon' as value to return only items sold by Amazon.
+
+**SimilarityType**: 'Intersection' returns the intersection of items that are similar to all ASINs specified. 'Random' returns the union of items that are similar to alll ASINs specified picking them randomly. Default is 'Intersection'.
+
+**domain**: Defaults to 'webservices.amazon.com'.
+
 #### Browse Node Lookup
 
 using promises:
