@@ -1,6 +1,20 @@
 
 # NodeJS Amazon Affiliate API Client
 
+---
+
+# THIS PROJECT IS NO LONGER MAINTAINED
+
+I have lost my affiliate api key, and can no longer maintain this project (I can't test). 
+
+If you find this library useful, I would love to transfer the whole repo to you - simply ask me. However, please don't ask for updates.
+
+# YOUR OPTIONS
+
+Amazon Webservices has released a Product Advertising API for node - [webservices.amazon.com/paapi5](https://webservices.amazon.com/paapi5/documentation/quick-start/using-sdk.html#nodejs)
+
+---
+
 [![Build Status](https://travis-ci.org/cmincarelli/amazon-affiliate-api.svg?branch=master)](https://travis-ci.org/cmincarelli/amazon-affiliate-api)
 [![Dependency Status](https://gemnasium.com/cmincarelli/amazon-affiliate-api.svg)](https://gemnasium.com/cmincarelli/amazon-affiliate-api)
 
